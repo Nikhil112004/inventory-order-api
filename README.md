@@ -285,9 +285,7 @@ Location:
 
 ```text
 postman/
-└── postman/Auth.postman_collection.json
-    postman/Orders.postman_collection.json
-    postman/Products.postman_collection.json
+└── postman/Inventory & Order API.postman_collection.json
 ```
 
 ## AI Usage
