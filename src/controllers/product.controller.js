@@ -53,7 +53,7 @@ const getProducts = async (req, res, next) => {
     }
 
     const pageNumber = Math.max(Number(page), 1);
-    const limitNumber = Math.min(Math.max(Number(limit), 1), 100);
+    const limitNumber = Math.min(Math.max(Number(limit), 1), 50);
     const skip = (pageNumber - 1) * limitNumber;
 
     const [products, totalProducts] = await Promise.all([

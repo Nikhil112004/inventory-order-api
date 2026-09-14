@@ -14,7 +14,7 @@ const productSchema = new mongoose.Schema(
       type: String,
       required: [true, "Product description is required"],
       trim: true,
-      minlength: [1, "Description must be at least 10 characters"],
+      minlength: [1, "Description must be at least 1 characters"],
       maxlength: [500, "Description cannot exceed 500 characters"],
     },
 
@@ -45,6 +45,7 @@ const productSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+productSchema.index({ category: 1, createdAt: -1 });
 
 const Product = mongoose.model("Product", productSchema);
 

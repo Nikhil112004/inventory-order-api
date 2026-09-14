@@ -169,6 +169,8 @@ GET /products?page=1&limit=10
 
 ```text
 GET /products?category=electronics&inStock=true&page=1&limit=10
+
+Default page size is 10 products, with a maximum limit of 50 products per request.
 ```
 
 ## Order Creation
