@@ -232,7 +232,9 @@ The client does not provide `totalAmount`, `price`, or `user`.
 
 ## Concurrent Stock Handling
 
-Stock updates use an atomic MongoDB operation:
+The task asks how to handle a race condition where two users try to purchase the last available item at the same time.
+
+Stock updates use an atomic MongoDB operation that checks whether the requested quantity is available and reduces the stock in the same database operation:
 
 ```text
 stockQuantity >= requested quantity
