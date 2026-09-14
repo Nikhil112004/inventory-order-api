@@ -135,7 +135,7 @@ npm start
 
 ## Product Search, Filtering & Pagination
 
-The `GET /products` endpoint supports:
+The `GET /products` endpoint supports search, category filtering, availability filtering, and pagination.
 
 ### Search
 
@@ -165,13 +165,41 @@ GET /products?inStock=false
 GET /products?page=1&limit=10
 ```
 
+The default page size is 10 products, with a maximum limit of 50 products per request.
+
+For example:
+
+```text
+Page 1 → products 1–10
+Page 2 → products 11–20
+Page 3 → products 21–30
+```
+
 ### Combined Query
 
 ```text
 GET /products?category=electronics&inStock=true&page=1&limit=10
-
-Default page size is 10 products, with a maximum limit of 50 products per request.
 ```
+
+## Database Indexing
+
+Indexes are added based on frequently used query patterns to improve database query performance.
+
+### Product Index
+
+```js
+productSchema.index({ category: 1, createdAt: -1 });
+```
+
+This supports category filtering and sorting products by creation date.
+
+### Order Index
+
+```js
+orderSchema.index({ user: 1, createdAt: -1 });
+```
+
+This supports efficiently retrieving a user's orders sorted by the latest created orders.
 
 ## Order Creation
 
@@ -199,6 +227,8 @@ The server:
 5. Creates the order.
 
 The client does not provide `totalAmount`, `price`, or `user`.
+
+
 
 ## Concurrent Stock Handling
 
@@ -251,6 +281,15 @@ NODE_ENV=development
 
 A Postman collection is included with the project for testing all available API endpoints.
 
+Location:
+
+```text
+postman/
+└── postman/Auth.postman_collection.json
+    postman/Orders.postman_collection.json
+    postman/Products.postman_collection.json
+```
+
 ## AI Usage
 
 AI tools were used during development for:
@@ -265,8 +304,15 @@ All submitted code was reviewed and tested during development.
 
 ## Testing
 
-All implemented API endpoints were tested using Postman, including authentication, product CRUD, product filtering/pagination, and order creation/retrieval.
+All implemented API endpoints were tested using Postman, including:
 
-##
+* Authentication
+* Product CRUD
+* Product search, filtering, and pagination
+* Order creation
+* Order retrieval
+* Stock validation
+
+---
 
 This project was created as part of a Backend Developer technical assessment.
